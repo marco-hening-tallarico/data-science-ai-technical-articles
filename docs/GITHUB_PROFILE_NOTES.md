@@ -35,6 +35,10 @@ prefer a figure that reflects a specific article, use one of the selected output
 previews under `docs/assets/` instead (for example `data-leakage-preview.png`,
 `nasa-climate-preview.png`, or `multiple-testing-preview.png`).
 
-Regenerate or adjust previews with `MPLBACKEND=Agg make preview-assets` from the
-repository root, or `MPLBACKEND=Agg python scripts/generate_docs_previews.py`
+Preview PNGs under `docs/assets/` are produced by `scripts/generate_docs_previews.py`
+(leakage and statistics plots come from embedded notebook figures; NASA uses
+`articles/nasa-climate-data-pt1/figures/temperature_anomaly_grid.png`; the
+social banner is matplotlib-only).
+
+Regenerate with `MPLBACKEND=Agg make preview-assets` from the repository root
 (use `MPLBACKEND=Agg` in restricted or headless environments).

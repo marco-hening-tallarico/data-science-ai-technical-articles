@@ -2,7 +2,7 @@ PYTHON ?= python3
 PIP ?= $(PYTHON) -m pip
 
 .PHONY: help install install-articles lint format test check notebook-status \
-	articles-report portfolio-report preview-assets
+	articles-report portfolio-report preview-assets image-montage image-index
 
 help:
 	@echo "Targets:"
@@ -16,6 +16,8 @@ help:
 	@echo "  articles-report   Generate docs/articles_report.md"
 	@echo "  portfolio-report  Generate docs/portfolio_report.md"
 	@echo "  preview-assets    Regenerate docs/assets/*.png (matplotlib previews)"
+	@echo "  image-montage     Build docs/assets/all_images_montage.png"
+	@echo "  image-index       Generate docs/IMAGE_INDEX.md"
 
 install:
 	$(PIP) install -r requirements-lock.txt
@@ -48,3 +50,9 @@ portfolio-report:
 
 preview-assets:
 	$(PYTHON) scripts/generate_docs_previews.py
+
+image-montage:
+	$(PYTHON) scripts/generate_all_images_montage.py
+
+image-index:
+	$(PYTHON) scripts/generate_image_index.py

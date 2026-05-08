@@ -1,143 +1,112 @@
-"""Generate lightweight PNG previews for docs/assets from repo-local fixtures.
+"""Write docs/assets preview PNGs from committed project artifacts.
 
-Figures are illustrative only: leakage panel uses the same toy frames as
-article tests; NASA panel uses the shared NASA POWER JSON schema test fixture;
-multiple-testing panel uses p-values from article unit tests for BH helpers.
+Priority sources (evidence-based, not invented):
+
+- Data leakage: first matplotlib output embedded in
+  ``articles/data-leakage-challenge/notebooks/Data_leaks.ipynb`` (correlation
+  heatmap cell).
+- NASA climate Pt. 1: ``articles/nasa-climate-data-pt1/figures/temperature_anomaly_grid.png``.
+- Multiple testing: matplotlib output from the look-elsewhere Monte Carlo cell in
+  ``articles/bonferroni-vs-benjamini-hochberg/notebooks/heavy-atom-p-val.ipynb``.
+
+Also regenerates ``social-preview.png`` (text-only banner for GitHub).
+
+Requires notebook outputs to retain ``image/png`` display_data (committed
+execution results). Re-run the flagship notebooks if outputs were cleared.
 """
 
 from __future__ import annotations
 
-import sys
+import base64
+import json
+import shutil
 from pathlib import Path
 
 import matplotlib
 
 matplotlib.use("Agg")
 import matplotlib.pyplot as plt
-import numpy as np
-import pandas as pd
 
 PROJECT_ROOT = Path(__file__).resolve().parents[1]
 ASSETS_DIR = PROJECT_ROOT / "docs" / "assets"
 
-sys.path.insert(0, str(PROJECT_ROOT))
+DATA_LEAKS_NB = (
+    PROJECT_ROOT
+    / "articles"
+    / "data-leakage-challenge"
+    / "notebooks"
+    / "Data_leaks.ipynb"
+)
+HEAVY_ATOM_NB = (
+    PROJECT_ROOT
+    / "articles"
+    / "bonferroni-vs-benjamini-hochberg"
+    / "notebooks"
+    / "heavy-atom-p-val.ipynb"
+)
+NASA_PT1_FIGURE = (
+    PROJECT_ROOT
+    / "articles"
+    / "nasa-climate-data-pt1"
+    / "figures"
+    / "temperature_anomaly_grid.png"
+)
 
-from shared.nasa.data_access import power_json_to_frame  # noqa: E402
-
-
-def _configure_axes_style() -> None:
-    plt.rcParams.update(
-        {
-            "figure.facecolor": "white",
-            "axes.facecolor": "white",
-            "axes.grid": True,
-            "grid.alpha": 0.25,
-            "font.size": 10,
-        }
-    )
-
-
-def write_leakage_preview(output_path: Path) -> None:
-    """Overlap illustration matching ``test_entity_overlap_ratio_for_partial_overlap``."""
-    training_frame = pd.DataFrame({"tail_id": ["A", "B", "C"]})
-    testing_frame = pd.DataFrame({"tail_id": ["C", "D"]})
-    train_set = set(training_frame["tail_id"])
-    test_set = set(testing_frame["tail_id"])
-    overlap = train_set.intersection(test_set)
-
-    fig, ax = plt.subplots(figsize=(6, 3.5), dpi=120)
-    categories = sorted(train_set.union(test_set))
-    train_counts = [1 if c in train_set else 0 for c in categories]
-    test_counts = [1 if c in test_set else 0 for c in categories]
-    x = np.arange(len(categories))
-    width = 0.35
-    ax.bar(x - width / 2, train_counts, width, label="Train split", color="#4c72b0")
-    ax.bar(x + width / 2, test_counts, width, label="Test split", color="#55a868")
-    for idx, cat in enumerate(categories):
-        if cat in overlap:
-            ax.annotate(
-                "overlap",
-                xy=(idx, 1.05),
-                ha="center",
-                fontsize=8,
-                color="#c44e52",
-            )
-    ax.set_xticks(x)
-    ax.set_xticklabels(categories)
-    ax.set_ylim(0, 1.35)
-    ax.set_ylabel("Present in split (toy IDs)")
-    ax.set_title("Entity overlap toy example (article test scenario)")
-    ax.legend(loc="upper right", fontsize=8)
-    fig.tight_layout()
-    fig.savefig(output_path, bbox_inches="tight")
-    plt.close(fig)
+# Notebook cell indices align with current flagship notebooks (check after large edits).
+_LEAKAGE_HEATMAP_CELL = 6
+_BONFERRONI_MC_CELL = 1
 
 
-def write_nasa_preview(output_path: Path) -> None:
-    """Two-day T2M series from ``tests/test_nasa_data_access_shared.py`` fixture."""
-    payload = {
-        "properties": {
-            "parameter": {
-                "T2M": {"20250101": 10.0, "20250102": 11.0},
-                "PRECTOTCORR": {"20250101": 0.1, "20250102": 0.2},
-            }
-        }
-    }
-    frame = power_json_to_frame(payload)
-    fig, ax = plt.subplots(figsize=(6, 3.5), dpi=120)
-    ax.plot(
-        frame["date"],
-        frame["T2M"],
-        marker="o",
-        color="#4c72b0",
-        label="T2M (fixture payload)",
-    )
-    ax.set_xlabel("Date")
-    ax.set_ylabel("T2M")
-    ax.set_title("NASA POWER schema → frame (compact test fixture, not live API)")
-    ax.legend(fontsize=8)
-    fig.autofmt_xdate()
-    fig.tight_layout()
-    fig.savefig(output_path, bbox_inches="tight")
-    plt.close(fig)
+def _pngs_in_cell(notebook_path: Path, cell_index: int) -> list[bytes]:
+    """Decode every ``image/png`` in a code cell's outputs, in order."""
+    payload = json.loads(notebook_path.read_text(encoding="utf-8"))
+    cells = payload.get("cells", [])
+    if cell_index >= len(cells):
+        msg = f"{notebook_path.name}: cell index {cell_index} out of range"
+        raise RuntimeError(msg)
+    cell = cells[cell_index]
+    decoded: list[bytes] = []
+    for out in cell.get("outputs", []):
+        data = out.get("data", {})
+        b64 = data.get("image/png")
+        if b64:
+            decoded.append(base64.b64decode(b64))
+    return decoded
 
 
-def write_multiple_testing_preview(output_path: Path) -> None:
-    """BH thresholds vs sorted p-values; Bonferroni α/m line for comparison."""
-    import importlib.util
+def _write_png_from_notebook(
+    notebook_path: Path,
+    cell_index: int,
+    png_index: int,
+    dest: Path,
+    *,
+    description: str,
+) -> None:
+    pngs = _pngs_in_cell(notebook_path, cell_index)
+    if not pngs:
+        msg = (
+            f"No embedded PNG in {notebook_path.relative_to(PROJECT_ROOT)} "
+            f"cell {cell_index}; re-run the notebook to populate outputs "
+            f"({description})."
+        )
+        raise RuntimeError(msg)
+    if png_index >= len(pngs):
+        msg = (
+            f"{notebook_path.name} cell {cell_index}: "
+            f"PNG index {png_index} but only {len(pngs)} image(s) present."
+        )
+        raise RuntimeError(msg)
+    dest.write_bytes(pngs[png_index])
 
-    module_path = (
-        PROJECT_ROOT
-        / "articles"
-        / "bonferroni-vs-benjamini-hochberg"
-        / "src"
-        / "multiple_testing.py"
-    )
-    spec = importlib.util.spec_from_file_location("article_mt", module_path)
-    module = importlib.util.module_from_spec(spec)
-    assert spec and spec.loader
-    spec.loader.exec_module(module)
 
-    p_values = np.array([0.001, 0.02, 0.03, 0.4])
-    q_level = 0.05
-    m = len(p_values)
-    sorted_indices = np.argsort(p_values)
-    sorted_p = p_values[sorted_indices]
-    thresholds = module.benjamini_hochberg_thresholds(m, q_level)
-    bonf_line = 0.05 / m
-
-    fig, ax = plt.subplots(figsize=(6, 3.8), dpi=120)
-    ranks = np.arange(1, m + 1)
-    ax.scatter(ranks, sorted_p, color="#4c72b0", label="Sorted p-values", zorder=3)
-    ax.plot(ranks, thresholds, color="#55a868", label=f"BH thresholds (q={q_level})")
-    ax.axhline(bonf_line, color="#c44e52", linestyle="--", label="Bonferroni α/m")
-    ax.set_xlabel("Rank (sorted p-values)")
-    ax.set_ylabel("p")
-    ax.set_title("Multiple testing: BH vs Bonferroni (article test p-values)")
-    ax.legend(fontsize=8, loc="upper left")
-    fig.tight_layout()
-    fig.savefig(output_path, bbox_inches="tight")
-    plt.close(fig)
+def _copy_nasa_climate_preview(dest: Path) -> None:
+    if not NASA_PT1_FIGURE.is_file():
+        msg = (
+            f"Missing {NASA_PT1_FIGURE.relative_to(PROJECT_ROOT)}; "
+            "generate it from the NASA Pt. 1 notebook pipeline."
+        )
+        raise RuntimeError(msg)
+    shutil.copyfile(NASA_PT1_FIGURE, dest)
 
 
 def write_social_preview(output_path: Path) -> None:
@@ -180,13 +149,32 @@ def write_social_preview(output_path: Path) -> None:
 
 
 def main() -> None:
-    _configure_axes_style()
     ASSETS_DIR.mkdir(parents=True, exist_ok=True)
-    write_leakage_preview(ASSETS_DIR / "data-leakage-preview.png")
-    write_nasa_preview(ASSETS_DIR / "nasa-climate-preview.png")
-    write_multiple_testing_preview(ASSETS_DIR / "multiple-testing-preview.png")
+
+    _write_png_from_notebook(
+        DATA_LEAKS_NB,
+        _LEAKAGE_HEATMAP_CELL,
+        0,
+        ASSETS_DIR / "data-leakage-preview.png",
+        description="correlation heatmap",
+    )
+
+    _copy_nasa_climate_preview(ASSETS_DIR / "nasa-climate-preview.png")
+
+    _write_png_from_notebook(
+        HEAVY_ATOM_NB,
+        _BONFERRONI_MC_CELL,
+        0,
+        ASSETS_DIR / "multiple-testing-preview.png",
+        description="Monte Carlo / look-elsewhere plot",
+    )
+
     write_social_preview(ASSETS_DIR / "social-preview.png")
+
     print(f"Wrote previews under {ASSETS_DIR.relative_to(PROJECT_ROOT)}/")
+    print("  - data-leakage-preview.png  ← Data_leaks.ipynb embedded output")
+    print("  - nasa-climate-preview.png   ← nasa-climate-data-pt1/figures/")
+    print("  - multiple-testing-preview.png ← heavy-atom-p-val.ipynb embedded output")
 
 
 if __name__ == "__main__":

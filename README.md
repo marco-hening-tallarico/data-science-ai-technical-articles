@@ -54,10 +54,24 @@ Further detail: `docs/REPRODUCIBILITY.md`, `docs/DATA_POLICY.md`.
 
 ## Selected outputs
 
-Static previews are generated from **repo-local fixtures and article tests** (not
-claimed live API results or challenge leaderboard scores). Regenerate with
-`MPLBACKEND=Agg make preview-assets` from the repo root, or run
-`scripts/generate_docs_previews.py` directly with `MPLBACKEND=Agg` when needed.
+`docs/assets/` only keeps **four** standalone README assets on purpose: three
+flagship thumbnails plus **`social-preview.png`**. That is not the whole
+portfolio: **20+ more** committed figures live under `articles/**/figures/`
+(NASA Pt. 2, PINNs, trading, etc.). For a full path list (this repo’s
+`articles/` + `docs/` only), see [`docs/IMAGE_INDEX.md`](docs/IMAGE_INDEX.md)
+(`make image-index`). For one visual contact sheet, see
+[`docs/assets/all_images_montage.png`](docs/assets/all_images_montage.png)
+(`make image-montage`). Extra plots may exist only **inside** `.ipynb` outputs
+until you export them.
+
+Previews mirror **committed notebook outputs** for leakage and multiple-testing
+(embeddings in `Data_leaks.ipynb` and `heavy-atom-p-val.ipynb`) and the **saved
+figure** [`articles/nasa-climate-data-pt1/figures/temperature_anomaly_grid.png`](articles/nasa-climate-data-pt1/figures/temperature_anomaly_grid.png).
+They are real project visuals, not mocked charts; clearing notebook outputs will
+break regeneration until you re-execute those notebooks.
+
+Regenerate into `docs/assets/` with `MPLBACKEND=Agg make preview-assets`, or run
+`scripts/generate_docs_previews.py` with `MPLBACKEND=Agg` when needed.
 
 | Project | Preview |
 | --- | --- |
@@ -66,6 +80,8 @@ claimed live API results or challenge leaderboard scores). Regenerate with
 | [Bonferroni vs Benjamini-Hochberg](articles/bonferroni-vs-benjamini-hochberg) | ![Multiple testing preview](docs/assets/multiple-testing-preview.png) |
 
 **GitHub social preview:** optional Open Graph image at [`docs/assets/social-preview.png`](docs/assets/social-preview.png) (themes: technical writing, scientific Python, reproducible analysis). Settings and topic tags: [`docs/GITHUB_PROFILE_NOTES.md`](docs/GITHUB_PROFILE_NOTES.md).
+
+**Browse paths:** [`docs/IMAGE_INDEX.md`](docs/IMAGE_INDEX.md). **Browse all images inline:** [`ALL_IMAGES.md`](ALL_IMAGES.md). **Browse thumbnails:** [`docs/assets/all_images_montage.png`](docs/assets/all_images_montage.png) (`make image-montage`).
 
 ## Reviewer guide
 
@@ -153,7 +169,7 @@ make articles-report
 make portfolio-report
 ```
 
-To refresh README preview images and the social banner: `MPLBACKEND=Agg make preview-assets` (non-interactive matplotlib).
+To refresh README preview images and the social banner: `MPLBACKEND=Agg make preview-assets` (non-interactive matplotlib). To refresh the path list: `make image-index`.
 
 `make check` runs linting (`ruff check`) and the pytest suite.
 `make notebook-status` pretty-prints `docs/notebook_execution_report.json`; it

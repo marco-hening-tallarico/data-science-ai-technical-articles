@@ -39,5 +39,5 @@ Synthetic data only; no external dataset is required for the core workflow.
 - extraction of reusable statistical helpers
 
 ## Notes
-Educational notebook companion—not a standalone inference library intended for
+Educational notebook companion, not a standalone inference library intended for
 new domains without review.

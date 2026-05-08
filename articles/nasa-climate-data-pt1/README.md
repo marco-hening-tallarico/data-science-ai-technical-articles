@@ -1,4 +1,4 @@
-# How to Access NASA's Climate Data — Pt. 1
+# How to Access NASA's Climate Data, Pt. 1
 
 - **Published URL:** https://towardsdatascience.com/how-to-access-nasas-climate-data-and-how-its-powering-the-fight-against-climate-change-pt-1/
 

@@ -1,7 +1,7 @@
 PYTHON ?= python3
 PIP ?= $(PYTHON) -m pip
 
-.PHONY: help install install-articles lint format test check notebook-status portfolio-report
+.PHONY: help install install-articles lint format test check notebook-status articles-report
 
 help:
 	@echo "Targets:"
@@ -12,7 +12,7 @@ help:
 	@echo "  test              Run pytest suite"
 	@echo "  check             Run lint + tests"
 	@echo "  notebook-status   Print notebook execution report"
-	@echo "  portfolio-report  Generate docs/portfolio_report.md"
+	@echo "  articles-report   Generate docs/articles_report.md"
 
 install:
 	$(PIP) install -r requirements-lock.txt
@@ -37,5 +37,5 @@ check: lint test
 notebook-status:
 	$(PYTHON) -m json.tool docs/notebook_execution_report.json
 
-portfolio-report:
-	$(PYTHON) scripts/generate_portfolio_report.py
+articles-report:
+	$(PYTHON) scripts/generate_articles_report.py

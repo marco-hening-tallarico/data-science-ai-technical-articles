@@ -1,4 +1,4 @@
-"""Generate a conservative, evidence-based portfolio status report."""
+"""Generate a conservative, evidence-based articles status report."""
 
 from __future__ import annotations
 
@@ -8,7 +8,7 @@ from pathlib import Path
 
 PROJECT_ROOT = Path(__file__).resolve().parents[1]
 ARTICLES_DIR = PROJECT_ROOT / "articles"
-OUTPUT_PATH = PROJECT_ROOT / "docs" / "portfolio_report.md"
+OUTPUT_PATH = PROJECT_ROOT / "docs" / "articles_report.md"
 NOTEBOOK_REPORT_PATH = PROJECT_ROOT / "docs" / "notebook_execution_report.json"
 STATUS_LABELS = ("runnable", "partial", "in progress", "pending migration")
 
@@ -76,14 +76,15 @@ def main() -> None:
     notebook_status_map, notebook_counts, notebook_total = load_notebook_status()
 
     report_lines: list[str] = [
-        "# Portfolio Report",
+        "# Articles Report",
         "",
         "This report summarizes repository metadata and existing generated files.",
         "It does not execute notebooks, lint, or tests.",
         "",
         "## Article Summary",
         "",
-        "| Article | Status | Declared libraries | Data availability | Notebook status entries |",
+        "| Article | Status | Declared libraries | Data availability "
+        "| Notebook status entries |",
         "| --- | --- | --- | --- | --- |",
     ]
 
@@ -124,7 +125,8 @@ def main() -> None:
     )
     if notebook_total == 0:
         report_lines.append(
-            "- `docs/notebook_execution_report.json` not found; no notebook status snapshot available."
+            "- `docs/notebook_execution_report.json` not found; "
+            "no notebook status snapshot available."
         )
     else:
         report_lines.append(
@@ -140,7 +142,8 @@ def main() -> None:
             "## Test and Lint Status",
             "",
             "- Not collected by this script directly.",
-            "- Use `make check` for current lint/test status in the active environment.",
+            "- Use `make check` for current lint/test status in the "
+            "active environment.",
         ]
     )
 

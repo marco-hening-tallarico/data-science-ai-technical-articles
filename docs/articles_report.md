@@ -1,4 +1,4 @@
-# Portfolio Report
+# Articles Report
 
 This report summarizes repository metadata and existing generated files.
 It does not execute notebooks, lint, or tests.

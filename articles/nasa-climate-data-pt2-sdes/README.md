@@ -1,4 +1,4 @@
-# Stochastic Differential Equations and Temperature — NASA Climate Data pt. 2
+# Stochastic Differential Equations and Temperature: NASA Climate Data pt. 2
 
 - **Published URL:** https://towardsdatascience.com/stochastic-differential-equations-and-temperature-nasa-climate-data-pt-2/
 

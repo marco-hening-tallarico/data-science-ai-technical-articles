@@ -1,8 +1,7 @@
-# Technical Writing + Scientific Python Portfolio
+# Technical Writing + Scientific Python Articles
 
-A portfolio of technical writing and reproducible analysis projects across
-statistics, machine-learning validation, scientific computing, and mathematical
-exposition.
+Technical articles spanning reproducible analysis projects across statistics,
+machine-learning validation, scientific computing, and mathematical exposition.
 
 The emphasis is on clear explanation, runnable code where possible, reusable
 Python extracted from notebooks, and honest documentation of data and
@@ -26,7 +25,7 @@ reproducibility limits.
 ## Verification snapshot
 
 - Notebook execution: existing `docs/notebook_execution_report.json` reports **9 / 9** notebook entries marked `ok` (snapshot, not an on-demand run).
-- Portfolio report: `docs/portfolio_report.md`, generated via `make portfolio-report` from repository metadata and existing artifacts.
+- Articles report: `docs/articles_report.md`, generated via `make articles-report` from repository metadata and existing artifacts.
 - Lint and tests (this session): `make check PYTHON=.venv/bin/python` after `make install` (same `PYTHON`): Ruff passes; pytest reports **23 passed**.
 - Caveat: re-run validation after dependency, notebook, or source changes (PEP 668 setups may require a virtual environment rather than system `pip`).
 
@@ -37,16 +36,16 @@ Further detail: `docs/REPRODUCIBILITY.md`, `docs/DATA_POLICY.md`.
 Several projects ship article-local `src/` helpers with coverage from the repo
 test suite (`tests/` and article-local `tests/`):
 
-- [`articles/bonferroni-vs-benjamini-hochberg/src/multiple_testing.py`](articles/bonferroni-vs-benjamini-hochberg/src/multiple_testing.py) — Benjamini–Hochberg-style rejection logic shared with tests
-- [`articles/data-leakage-challenge/src/leakage_guards.py`](articles/data-leakage-challenge/src/leakage_guards.py) — entity-overlap leakage checks
-- [`articles/nasa-climate-data-pt1/src/nasa_pt1_pipeline.py`](articles/nasa-climate-data-pt1/src/nasa_pt1_pipeline.py) — climate frame export and preprocessing helpers
+- [`articles/bonferroni-vs-benjamini-hochberg/src/multiple_testing.py`](articles/bonferroni-vs-benjamini-hochberg/src/multiple_testing.py): Benjamini-Hochberg-style rejection logic shared with tests
+- [`articles/data-leakage-challenge/src/leakage_guards.py`](articles/data-leakage-challenge/src/leakage_guards.py): entity-overlap leakage checks
+- [`articles/nasa-climate-data-pt1/src/nasa_pt1_pipeline.py`](articles/nasa-climate-data-pt1/src/nasa_pt1_pipeline.py): climate frame export and preprocessing helpers
 
 Other articles also include tested `src/` modules (`norms.py`, `sde_ou.py`,
 `evaluation.py`, `pinn_heat.py`). The notebooks remain narrative artifacts;
 logic that benefits from regression checks lives in Python modules alongside
 them.
 
-## What this portfolio shows
+## What these articles cover
 
 - Statistical reasoning through simulation and error-rate comparisons
 - Leakage-aware machine-learning validation
@@ -106,13 +105,13 @@ make install
 make install-articles
 make check
 make notebook-status
-make portfolio-report
+make articles-report
 ```
 
 `make check` runs linting (`ruff check`) and the pytest suite.
 `make notebook-status` pretty-prints `docs/notebook_execution_report.json`; it
 does not execute notebooks fresh.
-`make portfolio-report` refreshes `docs/portfolio_report.md`.
+`make articles-report` refreshes `docs/articles_report.md`.
 
 Per article, when debugging one piece in isolation:
 
@@ -126,12 +125,12 @@ Reference docs:
 
 ## Status labels
 
-- **runnable** — executable materials are present and documented for the current
+- **runnable**: executable materials are present and documented for the current
   repo state
-- **partial** — core materials exist, but data, environment, or execution
+- **partial**: core materials exist, but data, environment, or execution
   assumptions remain
-- **in progress** — concept or implementation is still evolving
-- **pending migration** — older article awaiting migration into the current repo
+- **in progress**: concept or implementation is still evolving
+- **pending migration**: older article awaiting migration into the current repo
   structure
 
 ## Data policy
@@ -143,10 +142,10 @@ reproduced from the repository alone.
 
 ## Scope
 
-This is a technical writing and reproducible-analysis portfolio, not a
-production package. Some projects run as companions to published articles;
-others are staged for migration or depend on upstream APIs and compute. The
-README favors accurate status over broad claims.
+This repository holds technical writing and reproducible analysis articles,
+not a production package. Some projects run as companions to published
+articles; others are staged for migration or depend on upstream APIs and
+compute. The README favors accurate status over broad claims.
 
 ## Repository layout
 

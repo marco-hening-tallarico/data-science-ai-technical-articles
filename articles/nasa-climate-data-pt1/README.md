@@ -1,41 +1,47 @@
 # How to Access NASA's Climate Data — Pt. 1
 
 - **Published URL:** https://towardsdatascience.com/how-to-access-nasas-climate-data-and-how-its-powering-the-fight-against-climate-change-pt-1/
-- **Status:** runnable
-- **Primary tools:** Python, requests, pandas, numpy, matplotlib
 
 ## Purpose
-Data-access companion focused on obtaining, validating, and organizing NASA
-climate data for downstream analysis.
-
-## Key Methods
-- API retrieval
-- Tabular cleaning
-- Schema normalization
-- Time-series preparation
-- Exploratory validation
-
-## Data
-NASA POWER climate data (public). See data/README.md for acquisition details and terms.
-
-## Reproduce
-1. Create environment from repository root (`environment.yml`).
-2. Install article-specific dependencies from `requirements.txt`.
-3. Launch Jupyter from repository root.
-4. Open and run `notebooks/Climate_pt1.ipynb` from top to bottom.
-5. Use local dataset path `../data/processed/climate_data.csv` when prompted by notebook cells.
-6. For reusable API access logic, use `shared/nasa/data_access.py`.
-7. Regenerate plots into `figures/` and keep all paths relative.
+This project addresses the practical question of how to transform raw NASA POWER
+API responses into clean, analysis-ready climate tables that can be reused
+across notebooks and downstream statistical workflows.
 
 ## Contents
-- `notebooks/Climate_pt1.ipynb`: main article companion notebook
-- `data/processed/`: local output directory for generated climate tables (not committed by default)
-- `data/README.md`: data source, licensing, and acquisition guidance
-- `src/`: article-specific utilities (reserved for follow-up extraction)
-- `requirements.txt`: article-specific dependency list
+- `notebooks/Climate_pt1.ipynb`
+- `src/nasa_pt1_pipeline.py`
+- `data/README.md`
+- `data/processed/`
+- `figures/`
+- `requirements.txt`
+
+## Methods and libraries
+- Methods: API retrieval, JSON-to-table conversion, date normalization, export
+  to processed CSV for downstream analyses.
+- Libraries declared/used: Python, requests, pandas, NumPy, SciPy, matplotlib,
+  seaborn, JupyterLab.
+
+## Reproduce
+1. From repo root, run `make install`.
+2. Install article dependencies: `pip install -r articles/nasa-climate-data-pt1/requirements.txt`.
+3. Execute `notebooks/Climate_pt1.ipynb`.
+4. Generated outputs are typically written under `data/processed/`.
+5. Reuse helper logic from `src/nasa_pt1_pipeline.py` and `shared/nasa/data_access.py`.
+
+## Data
+Public NASA POWER climate data. See `data/README.md` for source details and
+handling notes.
 
 ## Status
-`runnable` (notebook appears in `docs/notebook_execution_report.json` with `ok`).
+`runnable` (notebook listed as `ok` in `docs/notebook_execution_report.json`).
+
+## Skills demonstrated
+- API-driven data collection
+- data cleaning and transformation
+- scientific Python time-series preparation
+- reusable pipeline helper design
+- reproducible notebook workflow
 
 ## Notes
-API availability and parameter choices may affect reproducibility over time.
+Upstream API availability and evolving endpoints can affect reproducibility
+timing and exact payload details.

@@ -31,3 +31,14 @@ def save_climate_frame(climate_frame: pd.DataFrame, output_path: Path) -> None:
     """Persist climate frame to CSV with parent directory creation."""
     output_path.parent.mkdir(parents=True, exist_ok=True)
     climate_frame.to_csv(output_path, index=False)
+
+
+def normalize_date_column(climate_frame: pd.DataFrame, date_column: str) -> pd.DataFrame:
+    """Return a copy with a normalized YYYY-MM-DD date string column."""
+    normalized = climate_frame.copy()
+    normalized[date_column] = pd.to_datetime(
+        normalized[date_column],
+        errors="coerce",
+        format="mixed",
+    ).dt.strftime("%Y-%m-%d")
+    return normalized

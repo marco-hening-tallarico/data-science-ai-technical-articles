@@ -1,41 +1,45 @@
 # Will You Spot the Leaks? A Data Science Challenge
 
 - **Published URL:** https://towardsdatascience.com/will-you-spot-the-leaks-a-data-science-challenge/
-- **Status:** runnable
-- **Primary tools:** Python, pandas, NumPy, matplotlib, seaborn
 
 ## Purpose
-Practical leakage-detection companion emphasizing split strategy, preprocessing
-boundaries, and entity-aware validation.
-
-## Key Methods
-- Target leakage identification
-- Temporal split hygiene
-- Entity leakage controls
-- Pipeline-safe preprocessing
-- Evaluation discipline
-
-## Data
-Challenge-style tabular examples modeled after airline safety scenarios, generated and manipulated within the notebook.
-
-## Reproduce
-1. Create environment from repository root (`environment.yml`).
-2. Install article-specific dependencies from `requirements.txt`.
-3. Launch Jupyter from repository root.
-4. Open and run `notebooks/Data_leaks.ipynb` from top to bottom.
-5. Use `src/leakage_guards.py` for reusable leakage checks in scripts/tests.
-6. Regenerate visuals into `figures/` with relative paths only.
+This project explores a central ML reliability question: how seemingly good
+model performance can be caused by leakage from time, entities, or target-proxy
+features rather than genuine predictive signal.
 
 ## Contents
-- `notebooks/Data_leaks.ipynb`: primary article companion notebook
-- `src/leakage_guards.py`: reusable checks for entity overlap and date-order validation
-- `figures/`: generated plots and visuals
-- `data/README.md`: data provenance and usage notes
-- `requirements.txt`: article-specific dependency list
+- `notebooks/Data_leaks.ipynb`
+- `src/leakage_guards.py`
+- `data/README.md`
+- `figures/`
+- `requirements.txt`
+
+## Methods and libraries
+- Methods: leakage detection, entity overlap checks, chronological validation,
+  split hygiene, challenge-style diagnostic framing.
+- Libraries declared/used: Python, pandas, NumPy, seaborn, matplotlib,
+  nest_asyncio, JupyterLab.
+
+## Reproduce
+1. From repo root, run `make install`.
+2. Install article dependencies: `pip install -r articles/data-leakage-challenge/requirements.txt`.
+3. Run `notebooks/Data_leaks.ipynb` end to end.
+4. Reuse utility functions in `src/leakage_guards.py` for deterministic checks.
+
+## Data
+Synthetic/scaffolded challenge-style tabular examples generated and transformed
+within the notebook workflow.
 
 ## Status
-`runnable` (notebook appears in `docs/notebook_execution_report.json` with `ok`).
+`runnable` (notebook listed as `ok` in `docs/notebook_execution_report.json`).
+
+## Skills demonstrated
+- leakage-aware model validation
+- data cleaning and transformation
+- split design under temporal and entity constraints
+- exploratory analysis translated into reusable Python checks
+- reproducible notebook workflow
 
 ## Notes
-Synthetic/scaffolded challenge framing; real enterprise leakage controls may
-require broader governance checks.
+Real production leakage prevention usually also requires feature-store and
+serving-time governance beyond this companion scope.

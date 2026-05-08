@@ -1,39 +1,44 @@
 # Storm or Signal: A Trading Agent Showdown
 
 - **Published URL:** https://ai.gopubby.com/storm-or-signal-a-trading-agent-showdown-5f3d662b2cef
-- **Status:** runnable
-- **Primary tools:** Python, notebooks, NumPy, pandas, matplotlib
 
 ## Purpose
-Reinforcement learning companion comparing trading-agent behavior under
-weather-linked signal hypotheses.
-
-## Key Methods
-- RL environment setup
-- Agent comparison
-- Signal testing
-- Experimental evaluation
-
-## Data
-Market/weather input sources as described in article materials and repo assets.
-
-## Reproduce
-1. Create environment from repository root (`environment.yml`).
-2. Install article-specific dependencies from `requirements.txt`.
-3. Launch Jupyter from repository root.
-4. Open and run `notebooks/PPO_agent.ipynb`.
-5. Save generated figures to `figures/` and tabular outputs to local `data/processed/`.
-6. Use `src/evaluation.py` for reusable strategy metrics.
+This project tests whether a weather-linked hypothesis can produce meaningful
+signal in an RL-driven trading setup, and emphasizes careful experimental
+comparison rather than claims of production alpha.
 
 ## Contents
-- `notebooks/PPO_agent.ipynb`: main article companion notebook
-- `src/evaluation.py`: reusable metrics for return/risk evaluation
-- `figures/`: generated plots and visuals
-- `data/README.md`: data source and provenance notes
-- `requirements.txt`: article-specific dependency list
+- `notebooks/PPO_agent.ipynb`
+- `src/evaluation.py`
+- `data/README.md`
+- `figures/`
+- `requirements.txt`
+
+## Methods and libraries
+- Methods: PPO-based RL experimentation, comparative evaluation, return/risk
+  metric inspection.
+- Libraries declared/used: Python, gym, stable-baselines3, torch, pandas,
+  NumPy, matplotlib, seaborn, meteostat, pybroker, JupyterLab.
+
+## Reproduce
+1. From repo root, run `make install`.
+2. Install dependencies: `pip install -r articles/trading-agent-showdown/requirements.txt`.
+3. Execute `notebooks/PPO_agent.ipynb`.
+4. Reuse metrics in `src/evaluation.py` for deterministic analysis checks.
+
+## Data
+Uses market/weather inputs as documented in the notebook and `data/README.md`.
 
 ## Status
-`runnable` (notebook appears in `docs/notebook_execution_report.json` with `ok`).
+`runnable` (notebook listed as `ok` in `docs/notebook_execution_report.json`).
+
+## Skills demonstrated
+- reinforcement learning experimentation
+- quantitative evaluation design
+- data integration for applied ML
+- reproducible notebook workflow
+- translating exploratory metrics into reusable Python
 
 ## Notes
-Financial modeling assumptions and market frictions may limit external validity.
+Results are exploratory and sensitive to assumptions, timeframe, and market
+frictions.

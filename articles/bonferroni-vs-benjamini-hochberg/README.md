@@ -1,41 +1,43 @@
 # Bonferroni vs. Benjamini-Hochberg: Choosing Your P-Value Correction
 
 - **Published URL:** https://towardsdatascience.com/the-time-10-99-was-too-big-superheavy-elements-and-deceit/
-- **Status:** runnable
-- **Primary tools:** Python, NumPy, matplotlib
 
 ## Purpose
-Show practical trade-offs between FWER and FDR control in reproducible,
-notebook-driven examples.
-
-## Key Methods
-- Family-Wise Error Rate (FWER)
-- Bonferroni correction
-- False Discovery Rate (FDR)
-- Benjamini-Hochberg procedure
-- Monte Carlo illustration of false positive risk
-
-## Data
-Synthetic simulation only. No external dataset is required for core reproduction.
-
-## Reproduce
-1. Create environment from repository root (`environment.yml`).
-2. Install article-specific dependencies from `requirements.txt`.
-3. Launch Jupyter from repository root.
-4. Open and run `notebooks/heavy-atom-p-val.ipynb` from top to bottom.
-5. Regenerate charts into `figures/` and verify paths are relative.
-6. (Optional) Use `src/multiple_testing.py` helpers in custom scripts.
+This companion asks when strict family-wise error control is worth the loss of
+power, and when false-discovery-rate control is a better fit for exploratory
+scientific workflows with many simultaneous hypotheses.
 
 ## Contents
-- `notebooks/heavy-atom-p-val.ipynb`: main article companion notebook migrated from source repo
-- `src/multiple_testing.py`: reusable correction helpers and thresholds
-- `figures/`: generated plots and visuals
-- `data/README.md`: data provenance and availability note
-- `requirements.txt`: article-specific dependency list
+- `notebooks/heavy-atom-p-val.ipynb`
+- `src/multiple_testing.py`
+- `data/README.md`
+- `figures/`
+- `requirements.txt`
+
+## Methods and libraries
+- Methods: Bonferroni correction, Benjamini-Hochberg thresholding, Monte Carlo
+  style simulation framing for false-positive risk.
+- Libraries declared/used: Python, NumPy, matplotlib, JupyterLab.
+
+## Reproduce
+1. From repo root, install tooling with `make install`.
+2. Install article dependencies: `pip install -r articles/bonferroni-vs-benjamini-hochberg/requirements.txt`.
+3. Run `notebooks/heavy-atom-p-val.ipynb` from top to bottom.
+4. Optionally reuse logic from `src/multiple_testing.py` in scripts/tests.
+
+## Data
+Synthetic data only; no external dataset is required for the core workflow.
 
 ## Status
-`runnable` (notebook appears in `docs/notebook_execution_report.json` with `ok`).
+`runnable` (notebook listed as `ok` in `docs/notebook_execution_report.json`).
+
+## Skills demonstrated
+- multiple hypothesis testing
+- statistical simulation
+- quantitative trade-off analysis (FWER vs FDR)
+- reproducible notebook workflow
+- extraction of reusable statistical helpers
 
 ## Notes
-Educational demonstration; not a validated production inference framework for
-regulated scientific claims.
+Educational notebook companion—not a standalone inference library intended for
+new domains without review.

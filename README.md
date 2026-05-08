@@ -1,101 +1,163 @@
-# Applied AI and Data Science Portfolio
+# Technical Writing + Scientific Python Portfolio
 
-This repository is a reproducible portfolio of technical article companions
-across statistics, applied machine learning, scientific computing, NLP,
-reinforcement learning, and scientific ML.
+A portfolio of technical writing and reproducible analysis projects across
+statistics, machine-learning validation, scientific computing, and mathematical
+exposition.
 
-Website: [marcoheningtallarico.com](https://marcoheningtallarico.com/)  
-LinkedIn: [Marco Hening Tallarico](https://www.linkedin.com/in/marco-hening-tallarico/)  
-Towards Data Science: [Author Page](https://towardsdatascience.com/author/marco-heningtallarico/)
+The emphasis is on clear explanation, runnable code where possible, reusable
+Python extracted from notebooks, and honest documentation of data and
+reproducibility limits.
 
-## What This Repository Is
+## Featured
 
-Each article is organized as a mini-project with:
+- **Website:** [marcoheningtallarico.com](https://marcoheningtallarico.com/)
+- **LinkedIn:** [Marco Hening Tallarico](https://www.linkedin.com/in/marco-hening-tallarico/)
+- **Towards Data Science:** [Author Page](https://towardsdatascience.com/author/marco-hening-tallarico/)
+- **Interview / media:** [Bridging research and readability (Towards Data Science)](https://towardsdatascience.com/bridging-the-gap-between-research-and-readability-with-marco-hening-tallarico/)
 
-- an article-level `README.md`
-- reproducible notebook and/or helper module paths
-- dependency pins in article `requirements.txt`
-- data provenance notes in `data/README.md`
-- lightweight tests in `tests/` for reusable logic
+## Best entry points
 
-## Project Index
+| Project | Start here if you want to see... | Signal |
+| --- | --- | --- |
+| [`articles/data-leakage-challenge`](articles/data-leakage-challenge) | ML validation and leakage-aware evaluation | split discipline, leakage checks, scikit-learn workflow |
+| [`articles/nasa-climate-data-pt1`](articles/nasa-climate-data-pt1) | public-data analysis and reproducible EDA | API ingestion, cleaning, visualization |
+| [`articles/bonferroni-vs-benjamini-hochberg`](articles/bonferroni-vs-benjamini-hochberg) | statistical reasoning and simulation | multiple testing, FDR/FWER tradeoffs |
 
-Status labels are evidence-based:
+## Verification snapshot
 
-- `runnable`: notebook(s) appear in `docs/notebook_execution_report.json` with `"status": "ok"`
-- `partial`: only part of the companion is currently represented (for example, docs without full code parity)
-- `in progress`: active migration/buildout
-- `pending migration`: article is listed but executable companion assets are not yet present
+- Notebook execution: existing `docs/notebook_execution_report.json` reports **9 / 9** notebook entries marked `ok` (snapshot, not an on-demand run).
+- Portfolio report: `docs/portfolio_report.md`, generated via `make portfolio-report` from repository metadata and existing artifacts.
+- Lint and tests (this session): `make check PYTHON=.venv/bin/python` after `make install` (same `PYTHON`): Ruff passes; pytest reports **23 passed**.
+- Caveat: re-run validation after dependency, notebook, or source changes (PEP 668 setups may require a virtual environment rather than system `pip`).
 
-| article folder | topic | key methods | article link | status |
+Further detail: `docs/REPRODUCIBILITY.md`, `docs/DATA_POLICY.md`.
+
+## Reusable Python
+
+Several projects ship article-local `src/` helpers with coverage from the repo
+test suite (`tests/` and article-local `tests/`):
+
+- [`articles/bonferroni-vs-benjamini-hochberg/src/multiple_testing.py`](articles/bonferroni-vs-benjamini-hochberg/src/multiple_testing.py) — Benjamini–Hochberg-style rejection logic shared with tests
+- [`articles/data-leakage-challenge/src/leakage_guards.py`](articles/data-leakage-challenge/src/leakage_guards.py) — entity-overlap leakage checks
+- [`articles/nasa-climate-data-pt1/src/nasa_pt1_pipeline.py`](articles/nasa-climate-data-pt1/src/nasa_pt1_pipeline.py) — climate frame export and preprocessing helpers
+
+Other articles also include tested `src/` modules (`norms.py`, `sde_ou.py`,
+`evaluation.py`, `pinn_heat.py`). The notebooks remain narrative artifacts;
+logic that benefits from regression checks lives in Python modules alongside
+them.
+
+## What this portfolio shows
+
+- Statistical reasoning through simulation and error-rate comparisons
+- Leakage-aware machine-learning validation
+- Public-data ingestion, cleaning, and exploratory analysis where documented
+- Scientific Python workflows pairing notebooks with importable modules
+- Mathematical and applied exposition for readers
+- Repository hygiene: Makefile targets, Ruff, pytest, pre-commit, GitHub
+  Actions, dependency inventories
+
+## Project index
+
+Status labels mirror each article README and notebook snapshot evidence.
+
+| Project | Topic | Stack | Status | Signal |
 | --- | --- | --- | --- | --- |
-| `bonferroni-vs-benjamini-hochberg` | Statistics | FWER/FDR, Bonferroni, BH | [Bonferroni vs Benjamini-Hochberg](https://towardsdatascience.com/the-time-10-99-was-too-big-superheavy-elements-and-deceit/) | runnable |
-| `data-leakage-challenge` | Applied ML | Leakage detection, split hygiene | [Will You Spot the Leaks](https://towardsdatascience.com/will-you-spot-the-leaks-a-data-science-challenge/) | runnable |
-| `nasa-climate-data-pt1` | Data engineering | API access, cleaning, tabular preparation | [NASA Climate Data Pt. 1](https://towardsdatascience.com/how-to-access-nasas-climate-data-and-how-its-powering-the-fight-against-climate-change-pt-1/) | runnable |
-| `nasa-climate-data-pt2-sdes` | Scientific computing | Ornstein-Uhlenbeck process, simulation | [NASA Climate Data Pt. 2](https://towardsdatascience.com/stochastic-differential-equations-and-temperature-nasa-climate-data-pt-2/) | runnable |
-| `grammar-as-injectable-nlp` | NLP theory | CCG, compositional grammar framing | [Grammar as an Injectable](https://towardsdatascience.com/grammar-as-a-trojan-horse-to-nlp-and-computer-science/) | pending migration |
-| `point-to-l-infinity` | Math for ML | Lp norms, L-infinity behavior | [From a Point to L-infinity](https://towardsdatascience.com/from-a-point-to-l%e2%88%9e/) | runnable |
-| `trading-agent-showdown` | Reinforcement learning | PPO experimentation and evaluation | [Storm or Signal](https://ai.gopubby.com/storm-or-signal-a-trading-agent-showdown-5f3d662b2cef) | runnable |
-| `physics-informed-neural-networks` | Scientific ML | PINNs, inverse PDE setup | [PINNs for Inverse PDE Problems](https://towardsdatascience.com/physics-informed-neural-networks-for-inverse-pde-problems/) | runnable |
+| [`articles/bonferroni-vs-benjamini-hochberg`](articles/bonferroni-vs-benjamini-hochberg) | multiple testing tradeoffs | NumPy, matplotlib | runnable | statistical simulation |
+| [`articles/data-leakage-challenge`](articles/data-leakage-challenge) | leakage-aware ML validation | pandas, seaborn | runnable | leakage-aware evaluation |
+| [`articles/nasa-climate-data-pt1`](articles/nasa-climate-data-pt1) | climate API ingestion | requests, pandas | runnable | reproducible EDA |
+| [`articles/nasa-climate-data-pt2-sdes`](articles/nasa-climate-data-pt2-sdes) | SDE temperature modeling | SciPy, statsmodels | runnable | stochastic modeling |
+| [`articles/grammar-as-injectable-nlp`](articles/grammar-as-injectable-nlp) | grammar and NLP exposition | Jupyter scaffolding | pending migration | conceptual NLP framing |
+| [`articles/point-to-l-infinity`](articles/point-to-l-infinity) | Lp norms for ML intuition | sklearn, seaborn | runnable | mathematical exposition |
+| [`articles/trading-agent-showdown`](articles/trading-agent-showdown) | RL trading experiment | SB3, torch, pandas | runnable | RL experiment framing |
+| [`articles/physics-informed-neural-networks`](articles/physics-informed-neural-networks) | PINNs for inverse PDE setups | DeepXDE, TensorFlow | runnable | scientific ML setup |
 
-## Suggested Reading Paths
+## Recommended review paths
 
-- Statistics and evaluation rigor:
-  `bonferroni-vs-benjamini-hochberg` -> `data-leakage-challenge` -> `point-to-l-infinity`
-- Scientific data and modeling:
-  `nasa-climate-data-pt1` -> `nasa-climate-data-pt2-sdes` -> `physics-informed-neural-networks`
-- RL and experimental framing:
-  `trading-agent-showdown` -> shared tests in `tests/`
+**Data science / ML:**\
+[`data-leakage-challenge`](articles/data-leakage-challenge) → [`nasa-climate-data-pt1`](articles/nasa-climate-data-pt1) → [`bonferroni-vs-benjamini-hochberg`](articles/bonferroni-vs-benjamini-hochberg)
 
-## Reproducibility
+**Scientific computing / quantitative:**\
+[`nasa-climate-data-pt1`](articles/nasa-climate-data-pt1) → [`nasa-climate-data-pt2-sdes`](articles/nasa-climate-data-pt2-sdes) → [`physics-informed-neural-networks`](articles/physics-informed-neural-networks)
 
-1. Create the base environment:
-   `conda env create -f environment.yml`
-2. Activate it:
-   `conda activate tds-ai-data-science`
-3. Install root tooling (if needed):
-   `pip install -r requirements-lock.txt`
-4. Install an article's requirements:
-   `pip install -r articles/<slug>/requirements.txt`
-5. Follow the article `README.md` to run notebook(s) and helpers.
+**Technical writing / research:**\
+[`bonferroni-vs-benjamini-hochberg`](articles/bonferroni-vs-benjamini-hochberg) → [`point-to-l-infinity`](articles/point-to-l-infinity) → [`grammar-as-injectable-nlp`](articles/grammar-as-injectable-nlp)
 
-See also:
+## Technical stack
+
+- **Python / data:** Python, pandas, NumPy, requests
+- **Statistics / modeling:** SciPy, statsmodels, multiple-testing procedures
+- **Machine learning:** scikit-learn, stable-baselines3, TensorFlow, DeepXDE, torch
+- **Visualization:** matplotlib, seaborn
+- **Quality / reproducibility:** pytest, Ruff, pre-commit, Makefile, GitHub Actions
+- **Languages / formats:** Python, Markdown, Jupyter notebooks, YAML, JSON,
+  Makefile targets, documented shell-style commands from the Makefile,
+  mathematical notation aligned with typical LaTeX usage in articles
+
+See [`docs/dependency_inventory.md`](docs/dependency_inventory.md) for the
+full package and language inventory.
+
+## Reproduce
+
+From the repository root (use a virtual environment where system Python blocks
+plain `pip install`, then point `PYTHON` at that interpreter):
+
+```bash
+make install
+make install-articles
+make check
+make notebook-status
+make portfolio-report
+```
+
+`make check` runs linting (`ruff check`) and the pytest suite.
+`make notebook-status` pretty-prints `docs/notebook_execution_report.json`; it
+does not execute notebooks fresh.
+`make portfolio-report` refreshes `docs/portfolio_report.md`.
+
+Per article, when debugging one piece in isolation:
+
+- `pip install -r articles/<article-slug>/requirements.txt`
+
+Reference docs:
 
 - `docs/REPRODUCIBILITY.md`
 - `docs/DATA_POLICY.md`
 - `docs/LICENSE_NOTES.md`
 
-## Notebook Execution Snapshot
+## Status labels
 
-Based on `docs/notebook_execution_report.json`:
+- **runnable** — executable materials are present and documented for the current
+  repo state
+- **partial** — core materials exist, but data, environment, or execution
+  assumptions remain
+- **in progress** — concept or implementation is still evolving
+- **pending migration** — older article awaiting migration into the current repo
+  structure
 
-- 9 notebooks listed
-- 9/9 with status `ok`
-- slowest notebook in report:
-  `articles/nasa-climate-data-pt1/notebooks/Climate_pt1.ipynb` (~84.55s)
-- no grammar notebook is listed in the execution report
+## Data policy
 
-## Skills Demonstrated
+Article READMEs document whether data is public, generated, excluded, or pending
+migration. Large, private, restricted, or provenance-sensitive data is not
+committed unless appropriate. Status labels stay conservative about what can be
+reproduced from the repository alone.
 
-- Multiple-testing statistics and error-rate control
-- Applied ML leakage prevention and validation design
-- Public API data retrieval and cleaning pipelines
-- Stochastic process modeling (OU/SDE)
-- PINN-based inverse-problem setup
-- RL experiment setup and evaluation
-- Reproducibility discipline and data provenance documentation
+## Scope
 
-## Repository Structure
+This is a technical writing and reproducible-analysis portfolio, not a
+production package. Some projects run as companions to published articles;
+others are staged for migration or depend on upstream APIs and compute. The
+README favors accurate status over broad claims.
+
+## Repository layout
 
 ```text
-articles/    article-specific companions
-shared/      reusable modules (nasa, stats, plotting, utils)
-data/        optional shared data notes/artifacts
-tests/       lightweight validation tests
-docs/        reproducibility, policy, licensing, templates
+.
+├── articles/                  # article-specific notebooks, src helpers, data notes
+├── shared/                    # cross-article reusable modules
+├── tests/                     # repository-level pytest suite
+├── docs/                      # reproducibility and reporting documentation
+├── scripts/                   # automation scripts (report generation, utilities)
+├── data/                      # shared data notes and optional artifacts
+├── Makefile                   # install/check/report commands
+└── pyproject.toml             # lint/test configuration
 ```
-
-## Author Spotlight
-
-Featured by Towards Data Science:  
-[Bridging the Gap Between Research and Readability with Marco Hening Tallarico](https://towardsdatascience.com/bridging-the-gap-between-research-and-readability-with-marco-hening-tallarico/)

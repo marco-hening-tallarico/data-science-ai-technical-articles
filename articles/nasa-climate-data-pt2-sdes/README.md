@@ -1,40 +1,46 @@
 # Stochastic Differential Equations and Temperature — NASA Climate Data pt. 2
 
 - **Published URL:** https://towardsdatascience.com/stochastic-differential-equations-and-temperature-nasa-climate-data-pt-2/
-- **Status:** runnable
-- **Primary tools:** Python, NumPy, pandas, scipy, matplotlib
 
 ## Purpose
-Scientific computing companion implementing SDE-based temperature modeling with
-reproducible simulation.
-
-## Key Methods
-- Ornstein-Uhlenbeck process
-- SDE simulation
-- Parameter interpretation
-- Time-series diagnostics
-
-## Data
-NASA climate time series prepared from Pt. 1 pipeline and documented sources.
-
-## Reproduce
-1. Create environment from repository root (`environment.yml`).
-2. Install article-specific dependencies from `requirements.txt`.
-3. Ensure local input data exists at `../data/processed/climate_data.csv`.
-4. Launch Jupyter from repository root and run `notebooks/Climate_pt2.ipynb`.
-5. Notebook outputs and diagnostics are written to `../figures/`.
-6. Reusable SDE logic is available in `src/sde_ou.py`.
+This project investigates whether simple stochastic differential equation models
+(especially Ornstein-Uhlenbeck dynamics) can capture meaningful structure in
+temperature time series derived from the Pt. 1 climate pipeline.
 
 ## Contents
-- `notebooks/Climate_pt2.ipynb`: main SDE analysis notebook
-- `src/sde_ou.py`: OU simulation and estimation helpers
-- `figures/`: migrated diagnostics and generated plots
-- `data/README.md`: data provenance and preparation notes
-- `requirements.txt`: article-specific dependency list
+- `notebooks/Climate_pt2.ipynb`
+- `src/sde_ou.py`
+- `data/README.md`
+- `data/processed/`
+- `figures/`
+- `requirements.txt`
+
+## Methods and libraries
+- Methods: Ornstein-Uhlenbeck process modeling, Euler-style simulation,
+  parameter interpretation, time-series diagnostics.
+- Libraries declared/used: Python, NumPy, pandas, SciPy, statsmodels,
+  matplotlib, JupyterLab.
+
+## Reproduce
+1. From repo root, run `make install`.
+2. Install dependencies: `pip install -r articles/nasa-climate-data-pt2-sdes/requirements.txt`.
+3. Ensure prepared climate input exists (typically from Pt. 1 workflow).
+4. Execute `notebooks/Climate_pt2.ipynb`.
+5. Reuse helper functions in `src/sde_ou.py` where applicable.
+
+## Data
+Uses prepared NASA climate time series from the Pt. 1 data-access workflow.
 
 ## Status
-`runnable` (notebook appears in `docs/notebook_execution_report.json` with `ok`).
+`runnable` (notebook listed as `ok` in `docs/notebook_execution_report.json`).
+
+## Skills demonstrated
+- numerical simulation
+- stochastic process modeling
+- scientific visualization
+- parameter interpretation under uncertainty
+- reproducible notebook workflow
 
 ## Notes
-Model assumptions simplify real climate dynamics and should be interpreted
-cautiously.
+The OU formulation is intentionally simplified and should be interpreted as a
+didactic model, not a full climate dynamics model.

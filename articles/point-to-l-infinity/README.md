@@ -1,39 +1,44 @@
 # From a Point to L∞
 
 - **Published URL:** https://towardsdatascience.com/from-a-point-to-l%e2%88%9e/
-- **Status:** runnable
-- **Primary tools:** Python, NumPy, matplotlib, seaborn, scikit-learn
 
 ## Purpose
-Math-for-ML companion examining norm behavior, loss tradeoffs, and
-regularization implications.
-
-## Key Methods
-- Lp norms
-- L1/L2 loss behavior
-- Regularization comparison
-- Convergence to L-infinity norm
-
-## Data
-Synthetic numeric examples and generated demonstrations.
-
-## Reproduce
-1. Create environment from repository root (`environment.yml`).
-2. Install article-specific dependencies from `requirements.txt`.
-3. Launch Jupyter from repository root.
-4. Open and run `notebooks/code.ipynb` from top to bottom.
-5. Use reusable functions in `src/norms.py` for scripts and tests.
-6. Save generated plots to `figures/` when exporting visuals.
+This project develops intuition for how different norm choices reshape geometry,
+optimization behavior, and regularization assumptions in machine-learning
+objectives.
 
 ## Contents
-- `notebooks/code.ipynb`: main article companion notebook
-- `src/norms.py`: reusable Lp, L-infinity, and regularization helpers
-- `figures/`: generated plots and visuals
-- `data/README.md`: data and provenance notes
-- `requirements.txt`: article-specific dependency list
+- `notebooks/code.ipynb`
+- `src/norms.py`
+- `data/README.md`
+- `figures/`
+- `requirements.txt`
+
+## Methods and libraries
+- Methods: Lp norm comparisons, limiting behavior toward L-infinity, synthetic
+  demonstrations of optimization/regularization effects.
+- Libraries declared/used: Python, NumPy, matplotlib, seaborn, scikit-learn,
+  JupyterLab.
+
+## Reproduce
+1. From repo root, run `make install`.
+2. Install dependencies: `pip install -r articles/point-to-l-infinity/requirements.txt`.
+3. Execute `notebooks/code.ipynb`.
+4. Use reusable functions in `src/norms.py` for script-level checks.
+
+## Data
+Synthetic generated examples only; no external dataset is required.
 
 ## Status
-`runnable` (notebook appears in `docs/notebook_execution_report.json` with `ok`).
+`runnable` (notebook listed as `ok` in `docs/notebook_execution_report.json`).
+
+## Skills demonstrated
+- mathematical exposition for ML
+- numerical experimentation
+- scientific visualization
+- translating notebook logic into reusable modules
+- reproducible notebook workflow
 
 ## Notes
-Didactic focus; benchmarks are illustrative rather than exhaustive.
+Examples are didactic and prioritize interpretability over exhaustive empirical
+benchmarking.

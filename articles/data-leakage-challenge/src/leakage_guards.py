@@ -20,3 +20,17 @@ def is_sorted_chronologically(data_frame: pd.DataFrame, date_column: str) -> boo
     """Return True when date column is sorted ascending without reordering."""
     parsed_dates = pd.to_datetime(data_frame[date_column], errors="coerce")
     return parsed_dates.is_monotonic_increasing
+
+
+def entity_overlap_ratio(
+    training_frame: pd.DataFrame,
+    testing_frame: pd.DataFrame,
+    entity_column: str,
+) -> float:
+    """Return overlap ratio based on unique entities in the testing frame."""
+    testing_entities = set(testing_frame[entity_column])
+    if not testing_entities:
+        return 0.0
+    training_entities = set(training_frame[entity_column])
+    overlap_count = len(training_entities.intersection(testing_entities))
+    return overlap_count / float(len(testing_entities))

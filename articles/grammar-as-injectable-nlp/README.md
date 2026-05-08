@@ -1,37 +1,42 @@
 # Grammar as an Injectable: A Trojan Horse to NLP
 
 - **Published URL:** https://towardsdatascience.com/grammar-as-a-trojan-horse-to-nlp-and-computer-science/
-- **Status:** Pending migration
-- **Primary tools:** Python, notebooks
 
 ## Purpose
-Document the conceptual and implementation intent for this article companion while
-migration is still in progress.
-
-## Key Methods
-- Combinatory Categorial Grammar (CCG)
-- Type-driven composition
-- Grammar as structured computation
-- Interpretability-oriented NLP framing
-
-## Data
-Primarily conceptual and text-based examples; no large external dataset required.
-
-## Reproduce
-1. Create environment from repository root (`environment.yml`).
-2. Install article-specific dependencies from `requirements.txt`.
-3. Companion notebooks/scripts are not yet included in this folder.
-4. Use the published article URL for the narrative until migration is complete.
+Companion framing for asking how formal grammar structures can behave as
+interpretable computational primitives in language systems, while notebook and
+source assets are migrated into this repo.
 
 ## Contents
-- `README.md`: migration status and reproducibility intent
-- `data/README.md`: data/source notes
-- `requirements.txt`: article-specific dependency list
+- `README.md`
+- `data/README.md`
+- `requirements.txt`
+
+## Methods and libraries
+- Methods: Combinatory Categorial Grammar framing, type-driven composition,
+  interpretability-oriented NLP reasoning.
+- Libraries declared: Python, pandas, NumPy, JupyterLab.
+
+## Reproduce
+1. From repo root, run `make install`.
+2. Install dependencies: `pip install -r articles/grammar-as-injectable-nlp/requirements.txt`.
+3. Read the published article for full narrative context.
+4. Notebook/source assets are not yet present in this folder.
+
+## Data
+Conceptual and text-oriented examples; no committed external dataset assets in
+the current repository state.
 
 ## Status
-`pending migration` because this folder currently contains documentation and
-dependency scaffolding only (no `notebooks/` or `src/` assets yet).
+`pending migration` (documentation and dependency scaffolding exist, but no
+`notebooks/` or `src/` companion code is currently included).
+
+## Skills demonstrated
+- NLP architecture reasoning
+- formal grammar exposition for technical audiences
+- research-style technical writing
+- transparent migration status communication
 
 ## Notes
-The article is published; this repository entry preserves traceability while the
-executable companion is prepared.
+Project status is intentionally conservative until executable companion artifacts
+are migrated into this repository.

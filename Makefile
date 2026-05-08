@@ -1,6 +1,7 @@
-PYTHON ?= python
+PYTHON ?= python3
+PIP ?= $(PYTHON) -m pip
 
-.PHONY: help install install-articles lint format test check notebook-status
+.PHONY: help install install-articles lint format test check notebook-status portfolio-report
 
 help:
 	@echo "Targets:"
@@ -11,26 +12,30 @@ help:
 	@echo "  test              Run pytest suite"
 	@echo "  check             Run lint + tests"
 	@echo "  notebook-status   Print notebook execution report"
+	@echo "  portfolio-report  Generate docs/portfolio_report.md"
 
 install:
-	pip install -r requirements-lock.txt
+	$(PIP) install -r requirements-lock.txt
 
 install-articles:
 	for requirements_file in articles/*/requirements.txt; do \
 		echo "Installing $$requirements_file"; \
-		pip install -r "$$requirements_file"; \
+		$(PIP) install -r "$$requirements_file"; \
 	done
 
 lint:
-	ruff check .
+	$(PYTHON) -m ruff check .
 
 format:
-	ruff format .
+	$(PYTHON) -m ruff format .
 
 test:
-	pytest
+	$(PYTHON) -m pytest
 
 check: lint test
 
 notebook-status:
 	$(PYTHON) -m json.tool docs/notebook_execution_report.json
+
+portfolio-report:
+	$(PYTHON) scripts/generate_portfolio_report.py

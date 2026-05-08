@@ -1,44 +1,48 @@
 # Physics-Informed Neural Networks for Inverse PDE Problems
 
 - **Published URL:** https://towardsdatascience.com/physics-informed-neural-networks-for-inverse-pde-problems/
-- **Status:** runnable
-- **Primary tools:** Python, DeepXDE, TensorFlow, NumPy, pandas, matplotlib
 
 ## Purpose
-Scientific ML companion solving inverse PDE parameter estimation with PINNs and
-DeepXDE.
-
-## Key Methods
-- PINNs
-- Inverse PDE setup
-- Heat equation parameter inference
-- Automatic differentiation constraints
-
-## Data
-Simulated/structured temperature data as described in notebook pipeline.  
-Included sample: `data/simulated-heat-equation.csv`.
-
-## Reproduce
-1. Create environment from repository root (`environment.yml`).
-2. Install article-specific dependencies from `requirements.txt`.
-3. Launch Jupyter from repository root.
-4. Run notebooks in this recommended order:
-   - `notebooks/hot_rod_4.ipynb`
-   - `notebooks/PINN.ipynb`
-   - `notebooks/Laplacian-example.ipynb`
-5. Keep all I/O paths relative to the article folder.
-6. Reuse helper functions from `src/pinn_heat.py` for deterministic synthetic data generation.
+This companion examines how physics-informed neural networks can infer PDE
+parameters from sparse observations while preserving physical constraints during
+optimization.
 
 ## Contents
-- `notebooks/PINN.ipynb`: main PINN inverse-problem workflow
-- `notebooks/hot_rod_4.ipynb`: heat-equation simulation support notebook
-- `notebooks/Laplacian-example.ipynb`: Laplacian intuition notebook
-- `src/pinn_heat.py`: reusable seed and synthetic heat-grid helpers
-- `data/simulated-heat-equation.csv`: local sample data artifact
-- `requirements.txt`: article-specific dependency list
+- `notebooks/hot_rod_4.ipynb`
+- `notebooks/PINN.ipynb`
+- `notebooks/Laplacian-example.ipynb`
+- `src/pinn_heat.py`
+- `data/simulated-heat-equation.csv`
+- `requirements.txt`
+
+## Methods and libraries
+- Methods: PINN formulation, inverse PDE parameter estimation, heat-equation
+  constraints, simulation-backed diagnostics.
+- Libraries declared/used: Python, DeepXDE, TensorFlow, torch, NumPy, pandas,
+  SciPy, scikit-learn, matplotlib, JupyterLab.
+
+## Reproduce
+1. From repo root, run `make install`.
+2. Install dependencies: `pip install -r articles/physics-informed-neural-networks/requirements.txt`.
+3. Execute notebooks in order: `hot_rod_4.ipynb`, `PINN.ipynb`,
+   `Laplacian-example.ipynb`.
+4. Reuse helper logic in `src/pinn_heat.py` where applicable.
+
+## Data
+Uses simulated/structured data in the notebook workflow; includes sample
+artifact `data/simulated-heat-equation.csv`.
 
 ## Status
-`runnable` (notebook appears in `docs/notebook_execution_report.json` with `ok`).
+`runnable` (all three notebooks listed as `ok` in
+`docs/notebook_execution_report.json`).
+
+## Skills demonstrated
+- scientific machine learning
+- inverse problem formulation
+- numerical simulation
+- model constraint design from governing equations
+- technical writing about physics-informed network setups and failure modes
 
 ## Notes
-Compute-heavy and sensitive to architecture/hyperparameters.
+This workflow is compute-sensitive and hyperparameter-sensitive; numerical
+stability and convergence can vary across environments.

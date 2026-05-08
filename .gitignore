@@ -9,6 +9,9 @@ __pycache__/
 .coverage
 htmlcov/
 
+# Local matplotlib cache (optional; used for headless preview generation)
+.mplconfig/
+
 # Virtual environments
 .venv/
 venv/

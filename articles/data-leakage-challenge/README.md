@@ -40,6 +40,18 @@ within the notebook workflow.
 - exploratory analysis translated into reusable Python checks
 - reproducible notebook workflow
 
+## Design notes
+
+- Model scores are only interpretable next to the split definition; the notebook
+  stresses validation discipline rather than a single “best” accuracy number.
+- Entity-overlap and chronological helpers (`src/leakage_guards.py`) turn
+  overlap checks into repeatable assertions instead of one-off eyeballing.
+- Strong metrics under a leaky train/test overlap can still fail to generalize;
+  the challenge framing is to notice when the evaluation protocol rewards
+  artifacts.
+- High score under an unintentionally leaky split is not evidence of robust
+  deployment behavior—guards exist to make that failure mode easier to spot.
+
 ## Notes
 Real production leakage prevention usually also requires feature-store and
 serving-time governance beyond this companion scope.

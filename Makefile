@@ -1,7 +1,8 @@
 PYTHON ?= python3
 PIP ?= $(PYTHON) -m pip
 
-.PHONY: help install install-articles lint format test check notebook-status articles-report
+.PHONY: help install install-articles lint format test check notebook-status \
+	articles-report portfolio-report preview-assets
 
 help:
 	@echo "Targets:"
@@ -13,6 +14,8 @@ help:
 	@echo "  check             Run lint + tests"
 	@echo "  notebook-status   Print notebook execution report"
 	@echo "  articles-report   Generate docs/articles_report.md"
+	@echo "  portfolio-report  Generate docs/portfolio_report.md"
+	@echo "  preview-assets    Regenerate docs/assets/*.png (matplotlib previews)"
 
 install:
 	$(PIP) install -r requirements-lock.txt
@@ -39,3 +42,9 @@ notebook-status:
 
 articles-report:
 	$(PYTHON) scripts/generate_articles_report.py
+
+portfolio-report:
+	$(PYTHON) scripts/generate_portfolio_report.py
+
+preview-assets:
+	$(PYTHON) scripts/generate_docs_previews.py

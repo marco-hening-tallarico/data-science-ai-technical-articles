@@ -7,12 +7,30 @@ The emphasis is on clear explanation, runnable code where possible, reusable
 Python extracted from notebooks, and honest documentation of data and
 reproducibility limits.
 
+See [`docs/portfolio_report.md`](docs/portfolio_report.md) for an evidence-based
+roll-up of article status, declared dependencies, data availability notes, and
+notebook execution snapshots (generated metadata; not a fresh notebook run).
+
 ## Featured
 
 - **Website:** [marcoheningtallarico.com](https://marcoheningtallarico.com/)
 - **LinkedIn:** [Marco Hening Tallarico](https://www.linkedin.com/in/marco-hening-tallarico/)
 - **Towards Data Science:** [Author Page](https://towardsdatascience.com/author/marco-hening-tallarico/)
 - **Interview / media:** [Bridging research and readability (Towards Data Science)](https://towardsdatascience.com/bridging-the-gap-between-research-and-readability-with-marco-hening-tallarico/)
+
+## External writing
+
+Several projects here accompany technical articles on Towards Data Science. The
+repository keeps the notebooks, `src/` helpers, and reproducibility notes behind
+those pieces—not broad claims, but materials you can run and inspect.
+
+- **Towards Data Science author page:** [Marco Hening Tallarico](https://towardsdatascience.com/author/marco-heningtallarico/)
+
+| Flagship project | Published companion (URL from article README) |
+| --- | --- |
+| [Data Leakage Challenge](articles/data-leakage-challenge) | [Will You Spot the Leaks?](https://towardsdatascience.com/will-you-spot-the-leaks-a-data-science-challenge/) |
+| [NASA Climate Data Pt. 1](articles/nasa-climate-data-pt1) | [How to Access NASA’s Climate Data (Pt. 1)](https://towardsdatascience.com/how-to-access-nasas-climate-data-and-how-its-powering-the-fight-against-climate-change-pt-1/) |
+| [Bonferroni vs Benjamini–Hochberg](articles/bonferroni-vs-benjamini-hochberg) | [TDS companion (same URL as article README **Published URL**)](https://towardsdatascience.com/the-time-10-99-was-too-big-superheavy-elements-and-deceit/) |
 
 ## Best entry points
 
@@ -26,10 +44,36 @@ reproducibility limits.
 
 - Notebook execution: existing `docs/notebook_execution_report.json` reports **9 / 9** notebook entries marked `ok` (snapshot, not an on-demand run).
 - Articles report: `docs/articles_report.md`, generated via `make articles-report` from repository metadata and existing artifacts.
-- Lint and tests (this session): `make check PYTHON=.venv/bin/python` after `make install` (same `PYTHON`): Ruff passes; pytest reports **23 passed**.
+- Lint and tests: run `make check` in your environment after `make install` for current Ruff and pytest results (counts change with the codebase).
 - Caveat: re-run validation after dependency, notebook, or source changes (PEP 668 setups may require a virtual environment rather than system `pip`).
 
+For an evidence-based summary of article status, dependencies, data availability,
+and notebook execution snapshots, see [`docs/portfolio_report.md`](docs/portfolio_report.md).
+
 Further detail: `docs/REPRODUCIBILITY.md`, `docs/DATA_POLICY.md`.
+
+## Selected outputs
+
+Static previews are generated from **repo-local fixtures and article tests** (not
+claimed live API results or challenge leaderboard scores). Regenerate with
+`MPLBACKEND=Agg make preview-assets` from the repo root, or run
+`scripts/generate_docs_previews.py` directly with `MPLBACKEND=Agg` when needed.
+
+| Project | Preview |
+| --- | --- |
+| [Data Leakage Challenge](articles/data-leakage-challenge) | ![Data leakage preview](docs/assets/data-leakage-preview.png) |
+| [NASA Climate Data Pt. 1](articles/nasa-climate-data-pt1) | ![NASA climate preview](docs/assets/nasa-climate-preview.png) |
+| [Bonferroni vs Benjamini-Hochberg](articles/bonferroni-vs-benjamini-hochberg) | ![Multiple testing preview](docs/assets/multiple-testing-preview.png) |
+
+**GitHub social preview:** optional Open Graph image at [`docs/assets/social-preview.png`](docs/assets/social-preview.png) (themes: technical writing, scientific Python, reproducible analysis). Settings and topic tags: [`docs/GITHUB_PROFILE_NOTES.md`](docs/GITHUB_PROFILE_NOTES.md).
+
+## Reviewer guide
+
+- **Hiring manager:** [Best entry points](#best-entry-points), [External writing](#external-writing), [Featured](#featured) (website, LinkedIn, TDS author page, interview), then [Project index](#project-index).
+- **Data science reviewer:** [`articles/data-leakage-challenge`](articles/data-leakage-challenge) for leakage-aware validation and reusable overlap checks.
+- **Scientific Python reviewer:** [`articles/nasa-climate-data-pt1`](articles/nasa-climate-data-pt1) for public-data ingestion, cleaning, and reproducible EDA helpers.
+- **Statistics reviewer:** [`articles/bonferroni-vs-benjamini-hochberg`](articles/bonferroni-vs-benjamini-hochberg) for simulation-friendly FWER vs FDR tradeoffs.
+- **Technical writing reviewer:** compare article READMEs and notebooks with [External writing](#external-writing) companions and the interview link under [Featured](#featured).
 
 ## Reusable Python
 
@@ -106,12 +150,17 @@ make install-articles
 make check
 make notebook-status
 make articles-report
+make portfolio-report
 ```
+
+To refresh README preview images and the social banner: `MPLBACKEND=Agg make preview-assets` (non-interactive matplotlib).
 
 `make check` runs linting (`ruff check`) and the pytest suite.
 `make notebook-status` pretty-prints `docs/notebook_execution_report.json`; it
 does not execute notebooks fresh.
 `make articles-report` refreshes `docs/articles_report.md`.
+`make portfolio-report` refreshes `docs/portfolio_report.md` from the same
+metadata sources (still no notebook execution).
 
 Per article, when debugging one piece in isolation:
 
@@ -122,6 +171,7 @@ Reference docs:
 - `docs/REPRODUCIBILITY.md`
 - `docs/DATA_POLICY.md`
 - `docs/LICENSE_NOTES.md`
+- `docs/GITHUB_PROFILE_NOTES.md` (optional GitHub description, topics, social preview)
 
 ## Status labels
 

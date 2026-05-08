@@ -42,6 +42,17 @@ handling notes.
 - reusable pipeline helper design
 - reproducible notebook workflow
 
+## Design notes
+
+- Reproducibility depends on stable NASA POWER access patterns and documented
+  parameter choices; URL/query drift can change payloads even when code is fixed.
+- Date normalization and missing-value coercion are analytical decisions:
+  `normalize_date_column` encodes how ambiguous inputs become comparable rows.
+- Plots and summaries assume the preprocessing described here; changing cleaning
+  steps changes what the charts mean.
+- Pipeline helpers (`src/nasa_pt1_pipeline.py`, shared NASA accessors) separate
+  retrieval/normalization from narrative notebook cells so EDA can stay focused.
+
 ## Notes
 Upstream API availability and evolving endpoints can affect reproducibility
 timing and exact payload details.

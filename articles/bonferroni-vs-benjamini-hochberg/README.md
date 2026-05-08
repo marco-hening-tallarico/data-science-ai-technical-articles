@@ -38,6 +38,18 @@ Synthetic data only; no external dataset is required for the core workflow.
 - reproducible notebook workflow
 - extraction of reusable statistical helpers
 
+## Design notes
+
+- Choose Bonferroni-style FWER control when avoiding any family-wise false
+  positive matters most; choose BH/FDR control when exploratory screening can
+  tolerate some false positives while controlling discovery rate.
+- Small simulations make power versus conservatism concrete instead of relying
+  on verbal rules alone.
+- `src/multiple_testing.py` keeps BH rejection logic small and test-covered so
+  readers can inspect behavior rather than treating it as a black box.
+- This project explains tradeoffs for learning contexts; it is not a substitute
+  for domain-specific study design or preregistered inference packages.
+
 ## Notes
 Educational notebook companion, not a standalone inference library intended for
 new domains without review.

@@ -1,0 +1,7 @@
+ipython
+nest_asyncio
+numpy
+pandas
+matplotlib
+seaborn
+jupyterlab

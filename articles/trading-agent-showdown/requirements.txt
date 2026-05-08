@@ -1,0 +1,10 @@
+ipython
+gym
+matplotlib
+meteostat
+pandas
+pybroker
+seaborn
+stable-baselines3
+torch
+jupyterlab

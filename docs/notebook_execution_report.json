@@ -1,0 +1,56 @@
+[
+  {
+    "notebook": "articles/bonferroni-vs-benjamini-hochberg/notebooks/heavy-atom-p-val.ipynb",
+    "status": "ok",
+    "seconds": 1.59,
+    "error": ""
+  },
+  {
+    "notebook": "articles/data-leakage-challenge/notebooks/Data_leaks.ipynb",
+    "status": "ok",
+    "seconds": 1.76,
+    "error": ""
+  },
+  {
+    "notebook": "articles/nasa-climate-data-pt1/notebooks/Climate_pt1.ipynb",
+    "status": "ok",
+    "seconds": 84.55,
+    "error": ""
+  },
+  {
+    "notebook": "articles/nasa-climate-data-pt2-sdes/notebooks/Climate_pt2.ipynb",
+    "status": "ok",
+    "seconds": 1.18,
+    "error": ""
+  },
+  {
+    "notebook": "articles/physics-informed-neural-networks/notebooks/Laplacian-example.ipynb",
+    "status": "ok",
+    "seconds": 1.32,
+    "error": ""
+  },
+  {
+    "notebook": "articles/physics-informed-neural-networks/notebooks/PINN.ipynb",
+    "status": "ok",
+    "seconds": 1.79,
+    "error": ""
+  },
+  {
+    "notebook": "articles/physics-informed-neural-networks/notebooks/hot_rod_4.ipynb",
+    "status": "ok",
+    "seconds": 0.97,
+    "error": ""
+  },
+  {
+    "notebook": "articles/point-to-l-infinity/notebooks/code.ipynb",
+    "status": "ok",
+    "seconds": 2.57,
+    "error": ""
+  },
+  {
+    "notebook": "articles/trading-agent-showdown/notebooks/PPO_agent.ipynb",
+    "status": "ok",
+    "seconds": 3.1,
+    "error": ""
+  }
+]

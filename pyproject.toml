@@ -1,0 +1,23 @@
+[project]
+name = "tds-ai-data-science"
+version = "0.1.0"
+description = "Reproducible code companions for published AI and data science articles."
+requires-python = ">=3.11"
+
+[tool.black]
+line-length = 88
+target-version = ["py311"]
+
+[tool.ruff]
+line-length = 88
+target-version = "py311"
+extend-exclude = ["*.ipynb"]
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "B", "UP", "N"]
+ignore = ["E501"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+python_files = ["test_*.py"]
+pythonpath = ["."]
